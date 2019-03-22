@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<!-- 数据绑定 -->
+	<button onClick="insert()">insert</button>
+	<div id="app"></div>
+</body>
+<script type="text/javascript">
+	//1,框架
+	function Vue(options) {
+		//1,找到根元素
+		var el = options.el;
+		var rootElement = document.getElementById(el);
+		//2,从配置对象中取数据
+		var items = options.data.items;
+		//3,自动更新界面
+		function run() {
+			console.log("test");
+			//清除根元素上的内容
+			rootElement.innerHTML = "";
+			//把items数组中的数据显示在根元素中
+			for (var i = 0; i < items.length; i++) {
+				//var a=a+1;
+				rootElement.innerHTML = rootElement.innerHTML + items[i].title
+						+ "<br/>";
+			}
+		}
+		//每隔1秒钟执行一次run,相当于java中的thread
+		window.setInterval(run, 1000);
+	}
+
+	//-------------------
+	//2,程序员
+	var options = {
+		el : "app",
+		data : {
+			items : [ {
+				title : "item1"
+			}, {
+				title : "item2"
+			} ]
+		}
+	}
+	var vue = new Vue(options);
+	function insert() {
+		//把新数据放到数组中，vue框架会让界面会自动更新
+		var item = {
+			title : "新商品"
+		};
+		//items[0] [1]
+		//items[lenght]放新商品
+		var length = options.data.items.length;
+		//添加的新商品放在数组的最后面。
+		options.data.items[length] = item;
+	}
+</script>
+</html>
+
+
+

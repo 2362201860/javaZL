@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="jquery-3.1.1.min.js" type="text/javascript">
+	
+</script>
+</head>
+<body>
+	<button @click="insert">insert</button>
+	<button @click="deleteTest">delete</button>
+	<div id=app></div>
+</body>
+<script type="text/javascript">
+	//1写框架
+	function Vue(options) {
+		//1，找到根元素
+		var el = options.el;
+		var rootElement = document.getElementById(el);
+		//2,数据绑定
+		function run() {
+			var items = options.data.items;
+			rootElement.innerHTML = "";
+			for (var i = 0; i < items.length; i++) {
+				var title = items[i].title;
+				rootElement.innerHTML = rootElement.innerHTML + title + "<br/>"
+			}
+		}
+		window.setInterval(run, 100);
+		//3,事件绑定
+		//3.1 找到所有的button
+		var buttons = document.getElementsByTagName("button");
+		for (var i = 0; i < buttons.length; i++) {
+			var button = buttons[i];
+			var attributes = button.attributes;
+			for (var k = 0; k < attributes.length; k++) {
+				var name = attributes[k].name;
+
+				//3.2 判断button有没有@click属性
+				if ("@click" == name) {
+					//3.3 判断options.key与@click属性值是否一样
+					var attributeValue = attributes[k].value;
+					/**
+					options{
+						el:
+						data:
+					    deleteTest:fun
+					    insert:fun
+					}
+					 */
+					$.each(options, function(key, value) {
+						if (attributeValue == key) {
+							button.onclick = value;
+						}
+					})
+				}
+			}
+		}
+
+	}
+	//-------------------------------------
+	//2程序员用框架
+	var options = {
+		el : "app",
+		data : {
+			items : []
+		},
+		insert : function() {
+			var item = {
+				title : "新商品"
+			};
+			//向数组中添加一个数据
+			options.data.items.push(item);
+		},
+		deleteTest : function() {
+			//从数组中移出一个数据
+			options.data.items.pop();
+		}
+	}
+	var vue = new Vue(options);
+</script>
+</html>
+
+
+
+
+
+
+
+
+

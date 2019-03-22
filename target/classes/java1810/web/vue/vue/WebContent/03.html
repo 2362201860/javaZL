@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+	//框架
+	//1,定义配置文件格式和内容
+	/**
+	 * options={
+	 mounted:fun
+	 }
+	 */
+	//2,根据配置，去执行函数
+	function Vue(options) {
+		//mounted是一个函数
+		var mounted = options.mounted;
+		//网页加载完运行函数
+		window.onload = mounted;
+	}
+
+	//---------------------------------------
+	//程序员
+	//1,设置配置信息
+	var options = {
+		mounted : function() {
+			//chrome浏览器 F12 console窗口
+			console.log("run");
+			//实际工作中，写很多代码
+		}
+	}
+	//2,启动框架
+	var vue = new Vue(options);
+</script>
+</html>
+
+
+
+

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="jquery-3.1.1.min.js" type="text/javascript">
+	
+</script>
+</head>
+<body>
+	<!-- @click属性是由vue框架来处理 
+传统做法 onClick=deleteTest()
+-->
+	<button @click="deleteTest">删除</button>
+	<button @click="modify">修改</button>
+
+</body>
+<script type="text/javascript">
+	//1,框架
+	function Vue(options) {
+		//1,找到所有的button
+		var buttons = document.getElementsByTagName("button");
+		for (var i = 0; i < buttons.length; i++) {
+			var button = buttons[i];
+			//一个标签有多个属性
+			var attributes = button.attributes;
+			//遍历属性数组
+			for (var k = 0; k < attributes.length; k++) {
+				var attribute = attributes[k];
+				//属性名
+				var name = attribute.name;
+
+				//2,判断button有没有@click属性
+				if (name == "@click") {
+					//3,从配置对象中找一个函数，进行事件绑定
+					/**
+					 *<button @click=deleteTest
+					 *<button @click=modify>
+					 *options{
+					 * deleteTest:fun,
+					 * modify:fun
+					 *}
+					 */
+					//button @click的属性值 deleteTest,modify
+					var attributeValue = attribute.value;
+					//jquery 的each函数遍历options,取到每个数据后，都执行function(key,value)
+					//取到第一个数据时key就是deleteTest,value是我们定义的函数fun(){}
+					$.each(options, function(key, value) {
+						if (attributeValue == key) {
+							button.onclick = value;
+						}
+					});
+				}
+			}
+
+		}
+	}
+	//------------------
+	//2,程序员使用框架
+	//jquery $.each()遍历options对象
+	//key deleteTest=第一个按钮的@click属性值
+	//key modify=第二个按钮的@click属性值 button.onclick=
+	var options = {
+		deleteTest : function() {
+			console.log("删除");
+		},
+		modify : function() {
+			console.log("修改");
+		}
+	}
+	var vue = new Vue(options);
+</script>
+</html>

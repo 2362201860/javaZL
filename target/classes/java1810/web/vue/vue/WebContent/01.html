@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+</head>
+<body>
+<div  id="app">内容不能为空
+</div>
+</body>
+<script type="text/javascript">
+//架构师写vue框架
+//定义配置文件的内容 对象中必须有el key,el放的是根元素的id
+//定义类  options是配置信息
+function Vue(options)
+{
+	//从配置信息中找根元素
+	var rootElementId=options.el;
+	var divObject=document
+	.getElementById(rootElementId);
+	//设置背景色
+	divObject.style.backgroundColor="#FF0000";
+}
+//------------------------------
+//程序员使用框架
+//1,设置配置信息
+var options={
+		"el":"app"
+}
+//2,启动框架
+var vue=new Vue(options);
+</script>
+</html>
+
+

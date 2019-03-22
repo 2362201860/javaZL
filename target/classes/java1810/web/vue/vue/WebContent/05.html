@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<!-- @click属性是由vue框架来处理 
+传统做法 onClick=deleteTest()
+-->
+	<button @click="deleteTest">删除</button>
+</body>
+<script type="text/javascript">
+	//1,框架
+	function Vue(options) {
+		//1,找到所有的button
+		var buttons = document.getElementsByTagName("button");
+		for (var i = 0; i < buttons.length; i++) {
+			var button = buttons[i];
+			//一个标签有多个属性
+			var attributes = button.attributes;
+			//遍历属性数组
+			for (var k = 0; k < attributes.length; k++) {
+				var attribute = attributes[k];
+				//属性名
+				var name = attribute.name;
+				//2,判断button有没有@click属性
+				if (name == "@click") {
+					//3,从配置对象中找一个函数，进行事件绑定
+					button.onclick = options.deleteTest;
+				}
+			}
+
+		}
+	}
+	//------------------
+	//2,程序员使用框架
+	var options = {
+		deleteTest : function() {
+			console.log("删除");
+		}
+	}
+	var vue = new Vue(options);
+</script>
+</html>
